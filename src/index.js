@@ -95,7 +95,7 @@ function tick() {
   requestAnimationFrame(tick);
 }
 
-function copyToClipboard(el) {
+function iosCopyToClipboard(el) {
 
     // resolve the element
     el = (typeof el === 'string') ? document.querySelector(el) : el;
