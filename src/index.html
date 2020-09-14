@@ -15,6 +15,18 @@
     <title>Simple QR</title>
     <meta name="description" content="Simple QR code scaner/generator.">
     <script>
+      function setManifest(path) {
+        const manifest = document.createElement('link');
+        manifest.rel = 'manifest';
+        manifest.href = '/simple-QR/favicon/' + path;
+        document.head.appendChild(manifest);
+      }
+      var userAgent = navigator.userAgent.toLowerCase();
+      if (userAgent.indexOf("iphone") > 0 || userAgent.indexOf("ipad") > 0) {
+        setManifest('ios.webmanifest');
+      } else {
+        setManifest('site.webmanifest');
+      }
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
           navigator.serviceWorker.register('/simple-QR/sw.js');
@@ -23,7 +35,6 @@
     </script>
     <link rel="apple-touch-icon" sizes="180x180" href="/simple-QR/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="48x48" href="/simple-QR/favicon/favicon-48x48.png">
-    <link rel="manifest" href="/simple-QR/favicon/site.webmanifest">
     <link rel="mask-icon" href="/simple-QR/favicon/safari-pinned-tab.svg" color="#5bbad5">
     <link rel="shortcut icon" href="/simple-QR/favicon/favicon.ico">
     <meta name="msapplication-TileColor" content="#da532c">
