@@ -1,4 +1,4 @@
-var CACHE_NAME = '2020-09-14 13:20';
+var CACHE_NAME = '2020-11-23 12:10';
 var urlsToCache = [
   '/simple-QR/',
   '/simple-QR/scan/',
