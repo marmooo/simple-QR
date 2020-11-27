@@ -1,4 +1,4 @@
-var CACHE_NAME = '2020-11-27 23:05';
+var CACHE_NAME = '2020-11-27 23:10';
 var urlsToCache = [
   '/simple-QR/',
   '/simple-QR/scan/',
@@ -6,6 +6,7 @@ var urlsToCache = [
   '/simple-QR/index.js',
   '/simple-QR/jsQR.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css',
+  'https://cdnjs.cloudflare.com/ajax/libs/encoding-japanese/1.0.30/encoding.min.js',
 ];
 
 self.addEventListener('install', function(event) {
