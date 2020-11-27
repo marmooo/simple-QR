@@ -68,7 +68,7 @@ function tick() {
       var code = jsQR(imageData.data, imageData.width, imageData.height, {
         inversionAttempts: "dontInvert",
       });
-      if (code && code.data != '') {
+      if (code) {
         drawLine(code.location.topLeftCorner, code.location.topRightCorner, 'red');
         drawLine(code.location.topRightCorner, code.location.bottomRightCorner, 'red');
         drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, 'red');
@@ -76,10 +76,11 @@ function tick() {
         navMessage.hidden = true;
         outputMessage.hidden = false;
         outputData.parentElement.hidden = false;
-        outputData.innerText = code.data;
+        var msg = Encoding.codeToString(Encoding.convert(code.binaryData, {to:'UNICODE', from:'SJIS'}));
+        outputData.innerText = msg;
         try {
-          new URL(code.data);
-          outputData.href = code.data;
+          new URL(msg);
+          outputData.href = msg;
         } catch {
         }
         var sound = new Audio();
