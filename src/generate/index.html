@@ -68,7 +68,7 @@
       </div>
       <button onclick="generate(this)" class="btn btn-secondary mt-3">QR コードを生成</button>
       <div>
-        <img id="qrcode" width="0" height="0" alt="QR コード">
+        <img id="qrcode" class="d-none" width="0" height="0" alt="QR コード">
       </div>
     </main>
     <footer class="pt-4 alert text-center">
@@ -89,6 +89,7 @@
         img.height = h;
         var wxh = w + 'x' + h;
         img.src = 'https://chart.apis.google.com/chart?cht=qr&chs=' + wxh + '&choe=Shift_JIS&chl=' + msg;
+        img.classList.remove('d-none');
       }
 
       function loadConfig() {
