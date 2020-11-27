@@ -8,5 +8,5 @@ var options = {
 };
 
 var app = express();
-app.use(express.static('src'));
+app.use(express.static('.'));
 https.createServer(options, app).listen(8080);
