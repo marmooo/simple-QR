@@ -76,7 +76,7 @@ function tick() {
         navMessage.hidden = true;
         outputMessage.hidden = false;
         outputData.parentElement.hidden = false;
-        var msg = Encoding.codeToString(Encoding.convert(code.binaryData, {to:'UNICODE', from:'SJIS'}));
+        var msg = Encoding.codeToString(Encoding.convert(code.binaryData, {to:'UNICODE', from:'AUTO'}));
         outputData.innerText = msg;
         try {
           new URL(msg);
