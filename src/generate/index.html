@@ -57,14 +57,14 @@
         <label for="textarea">QRコードにしたい文字列を入力:</label>
         <textarea id="textarea" class="form-control"></textarea>
       </div>
-      <div class="form-inline justify-content-center">
-        <div class="input-group w-auto">
+      <div class="row justify-content-center pt-3">
+        <div class="input-group w-auto px-2">
           <div class="input-group-prepend"><div class="input-group-text">width</div></div>
-          <input type="tel" id="width" class="form-control" value=300 placeholder="300" size="6" alt="width">
+          <input type="tel" id="width" class="form-control text-center" value=300 placeholder="300" size="5" aria-label="width">
         </div>
-        <div class="input-group w-auto">
+        <div class="input-group w-auto px-2">
           <div class="input-group-prepend"><div class="input-group-text">height</div></div>
-          <input type="tel" id="height" class="form-control ms-3" value=300 placeholder="300" size="6" alt="height">
+          <input type="tel" id="height" class="form-control text-center" value=300 placeholder="300" size="5" aria-label="height">
         </div>
       </div>
       <button onclick="generate(this)" class="btn btn-secondary mt-3">QR コードを生成</button>
