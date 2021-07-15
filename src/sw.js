@@ -1,8 +1,9 @@
-var CACHE_NAME = '2021-06-24 07:06';
+var CACHE_NAME = '2021-07-15 10:50';
 var urlsToCache = [
   '/simple-QR/',
   '/simple-QR/scan/',
   '/simple-QR/generate/',
+  '/simple-QR/favicon/favicon-48x48.png',
   '/simple-QR/index.js',
   '/simple-QR/jsQR.min.js',
   'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css',
