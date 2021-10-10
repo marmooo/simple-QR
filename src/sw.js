@@ -1,49 +1,49 @@
-var CACHE_NAME = '2021-10-08 00:19';
+var CACHE_NAME = "2021-10-11 08:30";
 var urlsToCache = [
-  '/simple-QR/',
-  '/simple-QR/scan/',
-  '/simple-QR/generate/',
-  '/simple-QR/favicon/favicon-48x48.png',
-  '/simple-QR/index.js',
-  '/simple-QR/jsQR.min.js',
-  'https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css',
-  'https://cdnjs.cloudflare.com/ajax/libs/encoding-japanese/1.0.30/encoding.min.js',
+  "/simple-QR/",
+  "/simple-QR/scan/",
+  "/simple-QR/scan.js",
+  "/simple-QR/generate/",
+  "/simple-QR/generate.js",
+  "/simple-QR/favicon/favicon-48x48.png",
+  "/simple-QR/jsQR.min.js",
+  "https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css",
+  "https://cdn.jsdelivr.net/npm/encoding-japanese@1.0.30/encoding.min.js",
 ];
 
-self.addEventListener('install', function(event) {
+self.addEventListener("install", function (event) {
   event.waitUntil(
     caches
-    .open(CACHE_NAME)
-    .then(function(cache) {
-      return cache.addAll(urlsToCache);
-    })
+      .open(CACHE_NAME)
+      .then(function (cache) {
+        return cache.addAll(urlsToCache);
+      }),
   );
 });
 
-self.addEventListener('fetch', function(event) {
+self.addEventListener("fetch", function (event) {
   event.respondWith(
     caches.match(event.request)
-      .then(function(response) {
+      .then(function (response) {
         if (response) {
           return response;
         }
         return fetch(event.request);
-      }
-    )
+      }),
   );
 });
 
-self.addEventListener('activate', function(event) {
+self.addEventListener("activate", function (event) {
   var cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
-    caches.keys().then(function(cacheNames) {
+    caches.keys().then(function (cacheNames) {
       return Promise.all(
-        cacheNames.map(function(cacheName) {
+        cacheNames.map(function (cacheName) {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
             return caches.delete(cacheName);
           }
-        })
+        }),
       );
-    })
+    }),
   );
 });

@@ -48,7 +48,7 @@
             <li class="nav-item"><a class="nav-link" href="/simple-QR/generate/">generate</a></li>
             <li class="nav-item"><a class="nav-link disabled" href="/simple-QR/scan/">scan</a></li>
           </ul>
-          <button title="ダークモード切替" onclick="toggleDarkMode()" class="fs-4 btn p-0 ms-1">🌓</button>
+          <button title="ダークモード切替" id="toggleDarkMode" class="fs-4 btn p-0 ms-1">🌓</button>
         </div>
       </nav>
     </header>
@@ -64,7 +64,7 @@
             <a id="outputData"></a>
           </div>
           <div class="pt-3">
-            <button onclick="copyToClipboard(this)" class="btn btn-primary">クリップボードにコピー</button>
+            <button id="copyToClipboard" class="btn btn-primary">クリップボードにコピー</button>
           </div>
         </div>
         <canvas id="canvas" class="w-100" hidden></canvas>
@@ -78,8 +78,8 @@
       </div>
       <div class="text-muted">&copy; <a href="https://github.com/marmooo">marmooo</a></div>
     </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/encoding-japanese/1.0.30/encoding.min.js" integrity="sha512-rqL5c2sp6KdRdB27P16dSYF9J3/WrP+UHrKuzWiN6304wz0bzv1ZE8G+zieQGSnNfg9UasgKNOQzv4yir7+Prg==" crossorigin="anonymous"></script>
-    <script src="/simple-QR/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/encoding-japanese@1.0.30/encoding.min.js" integrity="sha256-3N1q3S/Cg/TL0ER062kNT2VYIsHLzEqymlj2dEXYhXI=" crossorigin="anonymous"></script>
+    <script src="/simple-QR/scan.js"></script>
     <script src="/simple-QR/jsQR.min.js"></script>
   </body>
 </html>

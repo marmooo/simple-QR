@@ -48,7 +48,7 @@
             <li class="nav-item"><a class="nav-link disabled" href="/simple-QR/generate/">generate</a></li>
             <li class="nav-item"><a class="nav-link" href="/simple-QR/scan/">scan</a></li>
           </ul>
-          <button title="ダークモード切替" onclick="toggleDarkMode()" class="fs-4 btn p-0 ms-1">🌓</button>
+          <button title="ダークモード切替" id="toggleDarkMode" class="fs-4 btn p-0 ms-1">🌓</button>
         </div>
       </nav>
     </header>
@@ -70,7 +70,7 @@
           <input type="tel" id="height" class="form-control text-center" value=300 placeholder="300" size="5" aria-label="height">
         </div>
       </div>
-      <button onclick="generate(this)" class="btn btn-secondary mt-3">QR コードを生成</button>
+      <button id="generateQR" class="btn btn-secondary mt-3">QR コードを生成</button>
       <div>
         <img id="qrcode" class="d-none" width="0" height="0" alt="QR コード">
       </div>
@@ -83,35 +83,6 @@
       </div>
       <div class="text-muted">&copy; <a href="https://github.com/marmooo">marmooo</a></div>
     </footer>
-    <script>
-      function generate(obj) {
-        var img = document.getElementById('qrcode');
-        var w = document.getElementById('width').value;
-        var h = document.getElementById('height').value;
-        var msg = document.getElementById('textarea').value;
-        img.width = w;
-        img.height = h;
-        var wxh = w + 'x' + h;
-        img.src = 'https://chart.apis.google.com/chart?cht=qr&chs=' + wxh + '&choe=Shift_JIS&chl=' + msg;
-        img.classList.remove('d-none');
-      }
-
-      function loadConfig() {
-        if (localStorage.getItem('darkMode') == 1) {
-          document.documentElement.dataset.theme = 'dark';
-        }
-      }
-      loadConfig();
-
-      function toggleDarkMode() {
-        if (localStorage.getItem('darkMode') == 1) {
-          localStorage.setItem('darkMode', 0);
-          delete document.documentElement.dataset.theme;
-        } else {
-          localStorage.setItem('darkMode', 1);
-          document.documentElement.dataset.theme = 'dark';
-        }
-      }
-    </script>
+    <script src="/simple-QR/generate.js"></script>
   </body>
 </html>
