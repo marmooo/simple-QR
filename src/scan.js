@@ -24,7 +24,7 @@ function drawLine(begin, end, color) {
 }
 
 function tick() {
-  loadingMessage.innerText = "⌛ Loading video...";
+  loadingMessage.textContent = "⌛ Loading video...";
   if (video.readyState === video.HAVE_ENOUGH_DATA) {
     loadingMessage.hidden = true;
     canvasElement.hidden = false;
@@ -32,7 +32,7 @@ function tick() {
     canvasElement.height = video.videoHeight;
     canvasElement.width = video.videoWidth;
     canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
-    if (outputData.innerText == "") {
+    if (outputData.textContent == "") {
       const imageData = canvas.getImageData(
         0,
         0,
@@ -69,7 +69,7 @@ function tick() {
         const msg = Encoding.codeToString(
           Encoding.convert(code.binaryData, { to: "UNICODE", from: "AUTO" }),
         );
-        outputData.innerText = msg;
+        outputData.textContent = msg;
         try {
           new URL(msg);
           outputData.href = msg;
@@ -127,7 +127,7 @@ function iosCopyToClipboard(el) {
 function copyToClipboard() {
   const input = document.createElement("textarea");
   document.body.appendChild(input);
-  input.value = outputData.innerText;
+  input.value = outputData.textContent;
   iosCopyToClipboard(input);
   document.body.removeChild(input);
   alert("OK!");
