@@ -1,2 +1,6 @@
-# npm install http-server -g
-http-server --ssl --cert ssl/cert.crt --key ssl/cert.key
+# sudo apt install mkcert
+# mkcert -install
+# mkdir ~/.ssl && cd ~/.ssl
+# mkcert localhost & cd ..
+# sudo npm install http-server -g
+http-server --ssl --cert ~/.ssl/localhost.pem --key ~/.ssl/localhost-key.pem
