@@ -7,6 +7,7 @@ var urlsToCache = [
   "/simple-QR/generate.js",
   "/simple-QR/favicon/favicon.svg",
   "/simple-QR/jsQR.min.js",
+  "/simple-QR/node-qrcode.js",
   "https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css",
   "https://cdn.jsdelivr.net/npm/encoding-japanese@1.0.30/encoding.min.js",
 ];

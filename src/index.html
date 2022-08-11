@@ -75,7 +75,7 @@
       </div>
       <button id="generateQR" class="btn btn-secondary mt-3">QR コードを生成</button>
       <div>
-        <img id="qrcode" class="d-none" width="0" height="0" alt="QR コード">
+        <canvas id="qrcode" class="d-none" width="0" height="0"></canvas>
       </div>
     </main>
     <footer class="pt-4 alert text-center">
@@ -86,6 +86,7 @@
       </div>
       <div class="text-muted">&copy; <a href="https://github.com/marmooo">marmooo</a></div>
     </footer>
+    <script src="/simple-QR/node-qrcode.js"></script>
     <script src="/simple-QR/generate.js"></script>
   </body>
 </html>
