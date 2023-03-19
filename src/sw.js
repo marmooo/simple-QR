@@ -6,10 +6,13 @@ var urlsToCache = [
   "/simple-QR/generate/",
   "/simple-QR/generate.js",
   "/simple-QR/favicon/favicon.svg",
-  "/simple-QR/jsQR.min.js",
+  "/simple-QR/koder.js",
+  "/simple-QR/koder/zbar.js",
+  "/simple-QR/koder/zbar.wasm",
+  "/simple-QR/koder/browser.js",
   "/simple-QR/node-qrcode.js",
   "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css",
-  "https://cdn.jsdelivr.net/npm/encoding-japanese@1.0.30/encoding.min.js",
+  "https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.js",
 ];
 
 self.addEventListener("install", function (event) {

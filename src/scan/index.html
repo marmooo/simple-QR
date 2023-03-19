@@ -12,21 +12,21 @@
     <meta property="og:url" content="https://marmooo.github.io/simple-QR/">
     <meta property="og:image" content="https://marmooo.github.io/simple-QR/favicon/apple-touch-icon.png">
     <meta name="twitter:card" content="summary">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F2179JXDYY"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-F2179JXDYY');
-    </script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/simple-QR/sw.js');
-        });
-      }
-    </script>
+    <!-- <!-1- Global site tag (gtag.js) - Google Analytics -1-> -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-F2179JXDYY"></script> -->
+    <!-- <script> -->
+    <!--   window.dataLayer = window.dataLayer || []; -->
+    <!--   function gtag(){dataLayer.push(arguments);} -->
+    <!--   gtag('js', new Date()); -->
+    <!--   gtag('config', 'G-F2179JXDYY'); -->
+    <!-- </script> -->
+    <!-- <script> -->
+    <!--   if ('serviceWorker' in navigator) { -->
+    <!--     window.addEventListener('load', function() { -->
+    <!--       navigator.serviceWorker.register('/simple-QR/sw.js'); -->
+    <!--     }); -->
+    <!--   } -->
+    <!-- </script> -->
     <link rel="icon" type="image/png" href="/simple-QR/favicon/favicon.png">
     <link rel="icon" type="image/svg+xml" href="/simple-QR/favicon/favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="/simple-QR/favicon/apple-touch-icon.png">
@@ -60,7 +60,6 @@
       </noscript>
       <div>
         <div id="loadingMessage" class="alert alert-warning">カメラの利用を許可してください</div>
-        <div id="navMessage" class="alert alert-info" hidden>QR コードをかざしてください</div>
         <div id="outputMessage" class="alert alert-success" hidden>
           <div>
             <a id="outputData"></a>
@@ -69,7 +68,7 @@
             <button id="copyToClipboard" class="btn btn-primary" type="button">クリップボードにコピー</button>
           </div>
         </div>
-        <canvas id="canvas" class="w-100" hidden></canvas>
+        <canvas id="canvas" class="w-100"></canvas>
       </div>
     </main>
     <footer class="pt-4 alert text-center">
@@ -80,8 +79,6 @@
       </div>
       <div class="text-muted">&copy; <a href="https://github.com/marmooo">marmooo</a></div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/encoding-japanese@1.0.30/encoding.min.js" integrity="sha256-3N1q3S/Cg/TL0ER062kNT2VYIsHLzEqymlj2dEXYhXI=" crossorigin="anonymous"></script>
-    <script src="/simple-QR/scan.js"></script>
-    <script src="/simple-QR/jsQR.min.js"></script>
+    <script type="module" src="/simple-QR/scan.js"></script>
   </body>
 </html>

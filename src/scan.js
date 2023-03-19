@@ -14,162 +14,127 @@ function toggleDarkMode() {
   }
 }
 
-function drawLine(begin, end, color) {
-  canvas.beginPath();
-  canvas.moveTo(begin.x, begin.y);
-  canvas.lineTo(end.x, end.y);
-  canvas.lineWidth = 4;
-  canvas.strokeStyle = color;
-  canvas.stroke();
+function playAudio(audioBuffer, volume) {
+  const audioSource = audioContext.createBufferSource();
+  audioSource.buffer = audioBuffer;
+  if (volume) {
+    const gainNode = audioContext.createGain();
+    gainNode.gain.value = volume;
+    gainNode.connect(audioContext.destination);
+    audioSource.connect(gainNode);
+    audioSource.start();
+  } else {
+    audioSource.connect(audioContext.destination);
+    audioSource.start();
+  }
 }
 
-function tick() {
-  loadingMessage.textContent = "⌛ Loading video...";
+function unlockAudio() {
+  audioContext.resume();
+}
+
+function loadAudio(url) {
+  return fetch(url)
+    .then((response) => response.arrayBuffer())
+    .then((arrayBuffer) => {
+      return new Promise((resolve, reject) => {
+        audioContext.decodeAudioData(arrayBuffer, (audioBuffer) => {
+          resolve(audioBuffer);
+        }, (err) => {
+          reject(err);
+        });
+      });
+    });
+}
+
+function loadAudios() {
+  const promises = [
+    loadAudio("/simple-QR/mp3/correct3.mp3"),
+  ];
+  Promise.all(promises).then((audioBuffers) => {
+    correctAudio = audioBuffers[0];
+  });
+}
+
+function tick(time) {
   if (video.readyState === video.HAVE_ENOUGH_DATA) {
     loadingMessage.hidden = true;
-    canvasElement.hidden = false;
-
-    canvasElement.height = video.videoHeight;
-    canvasElement.width = video.videoWidth;
-    canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
-    if (outputData.textContent == "") {
-      const imageData = canvas.getImageData(
-        0,
-        0,
-        canvasElement.width,
-        canvasElement.height,
-      );
-      const code = jsQR(imageData.data, imageData.width, imageData.height, {
-        inversionAttempts: "dontInvert",
+    const width = video.videoWidth;
+    const height = video.videoHeight;
+    canvasElement.width = width;
+    canvasElement.height = height;
+    canvas.drawImage(video, 0, 0, width, height);
+    if (time - prevTime > 500) {
+      prevTime = time;
+      const imageData = canvas.getImageData(0, 0, width, height);
+      worker.postMessage({
+        data: imageData.data,
+        width: width,
+        height: height,
       });
-      if (code) {
-        drawLine(
-          code.location.topLeftCorner,
-          code.location.topRightCorner,
-          "red",
-        );
-        drawLine(
-          code.location.topRightCorner,
-          code.location.bottomRightCorner,
-          "red",
-        );
-        drawLine(
-          code.location.bottomRightCorner,
-          code.location.bottomLeftCorner,
-          "red",
-        );
-        drawLine(
-          code.location.bottomLeftCorner,
-          code.location.topLeftCorner,
-          "red",
-        );
-        navMessage.hidden = true;
-        outputMessage.hidden = false;
-        outputData.parentElement.hidden = false;
-        const msg = Encoding.codeToString(
-          Encoding.convert(code.binaryData, { to: "UNICODE", from: "AUTO" }),
-        );
-        outputData.textContent = msg;
-        try {
-          new URL(msg);
-          outputData.href = msg;
-        } catch {
-          // skip
-        }
-        const sound = new Audio();
-        sound.src = "/simple-QR/success.mp3";
-        sound.play();
-      } else {
-        navMessage.hidden = false;
-        outputMessage.hidden = true;
-        outputData.parentElement.hidden = true;
-      }
     }
+  } else {
+    loadingMessage.textContent = "⌛ Loading video...";
   }
   requestAnimationFrame(tick);
 }
 
-function iosCopyToClipboard(el) {
-  // resolve the element
-  el = (typeof el === "string") ? document.querySelector(el) : el;
-
-  // handle iOS as a special case
-  if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
-    // save current contentEditable/readOnly status
-    const editable = el.contentEditable;
-    const readOnly = el.readOnly;
-
-    // convert to editable with readonly to stop iOS keyboard opening
-    el.contentEditable = true;
-    el.readOnly = true;
-
-    // create a selectable range
-    const range = document.createRange();
-    range.selectNodeContents(el);
-
-    // select the range
-    const selection = window.getSelection();
-    selection.removeAllRanges();
-    selection.addRange(range);
-    el.setSelectionRange(0, 999999);
-
-    // restore contentEditable/readOnly to original state
-    el.contentEditable = editable;
-    el.readOnly = readOnly;
-  } else {
-    el.select();
-  }
-
-  // execute copy command
-  document.execCommand("copy");
+async function copyToClipboard(text) {
+  await navigator.clipboard.writeText(text);
+  alert("クリップボードにコピーしました。");
 }
 
-function copyToClipboard() {
-  const input = document.createElement("textarea");
-  document.body.appendChild(input);
-  input.value = outputData.textContent;
-  iosCopyToClipboard(input);
-  document.body.removeChild(input);
-  alert("OK!");
+function initWorker() {
+  const worker = new Worker("/simple-QR/koder.js");
+  worker.onmessage = (ev) => {
+    const code = ev.data.data;
+    if (!code) return;
+    outputMessage.hidden = false;
+    outputData.parentElement.hidden = false;
+    outputData.textContent = code;
+    try {
+      new URL(code);
+      outputData.href = code;
+    } catch {
+      // skip
+    }
+    playAudio(correctAudio);
+  };
+  return worker;
+}
+
+function initScan() {
+  navigator.mediaDevices.getUserMedia({
+    audio: false,
+    video: { facingMode: "environment" },
+  }).then((stream) => {
+    video.srcObject = stream;
+    video.setAttribute("playsinline", "true");
+    video.play();
+    requestAnimationFrame(tick);
+  }).catch((err) => {
+    alert(err.message);
+  });
 }
 
 loadConfig();
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioContext = new AudioContext();
+loadAudios();
+let correctAudio;
+let prevTime = 0;
 const video = document.createElement("video");
 const canvasElement = document.getElementById("canvas");
 const canvas = canvasElement.getContext("2d");
 const loadingMessage = document.getElementById("loadingMessage");
-const navMessage = document.getElementById("navMessage");
 const outputMessage = document.getElementById("outputMessage");
 const outputData = document.getElementById("outputData");
-
-if (navigator.mediaDevices.getUserMedia === undefined) {
-  navigator.mediaDevices.getUserMedia = function (constraints) {
-    const getUserMedia = navigator.webkitGetUserMedia ||
-      navigator.mozGetUserMedia;
-    if (!getUserMedia) {
-      return Promise.reject(
-        new Error("getUserMedia is not implemented in this browser"),
-      );
-    }
-    return new Promise(function (resolve, reject) {
-      getUserMedia.call(navigator, constraints, resolve, reject);
-    });
-  };
-}
-
-// navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } }).then(function(stream) {
-navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
-  .then(function (stream) {
-    video.srcObject = stream;
-    video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
-    video.play();
-    requestAnimationFrame(tick);
-  }).catch(function (err) {
-    alert(err.message);
-  });
+const worker = initWorker();
+initScan();
 
 document.getElementById("toggleDarkMode").onclick = toggleDarkMode;
-const copyToClipboardButton = document.getElementById("copyToClipboard");
-if (copyToClipboardButton) {
-  copyToClipboardButton.onclick = copyToClipboard;
-}
+document.getElementById("copyToClipboard").onclick = copyToClipboard;
+document.addEventListener("click", unlockAudio, {
+  once: true,
+  useCapture: true,
+});
