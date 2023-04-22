@@ -111,7 +111,7 @@ const audioBufferCache = {};
 loadAudio("correct", "/simple-QR/mp3/correct3.mp3");
 const video = document.createElement("video");
 const canvasElement = document.getElementById("canvas");
-const canvas = canvasElement.getContext("2d");
+const canvas = canvasElement.getContext("2d", { willReadFrequently: true });
 const loadingMessage = document.getElementById("loadingMessage");
 const outputMessage = document.getElementById("outputMessage");
 const outputData = document.getElementById("outputData");
