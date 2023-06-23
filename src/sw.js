@@ -1,4 +1,4 @@
-var CACHE_NAME = "2023-04-22 21:25";
+var CACHE_NAME = "2023-06-23 09:25";
 var urlsToCache = [
   "/simple-QR/",
   "/simple-QR/scan/",
@@ -10,8 +10,6 @@ var urlsToCache = [
   "/simple-QR/koder/zbar.js",
   "/simple-QR/koder/zbar.wasm",
   "/simple-QR/koder/browser.js",
-  "/simple-QR/node-qrcode.js",
-  "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css",
   "https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.js",
 ];
 
