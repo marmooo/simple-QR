@@ -21,8 +21,6 @@ function generateQR() {
   const msg = document.getElementById('textarea').value;
   img.width = w;
   img.height = h;
-  // const wxh = w + 'x' + h;
-  // img.src = 'https://chart.apis.google.com/chart?cht=qr&chs=' + wxh + '&choe=Shift_JIS&chl=' + msg;
   QRCode.toCanvas(img, msg, { width:w, height:h });
   img.classList.remove('d-none');
 }
