@@ -1,4 +1,4 @@
-const CACHE_NAME = "2023-08-28 08:50";
+const CACHE_NAME = "2023-11-18 16:00";
 const urlsToCache = [
   "/simple-QR/",
   "/simple-QR/scan/",
