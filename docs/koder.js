@@ -1,1 +1,0 @@
-importScripts("/simple-QR/koder/zbar.js"),importScripts("/simple-QR/koder/browser.js"),(async()=>{const e=await(new Koder).initialize({wasmDirectory:"/simple-QR/koder"});self.addEventListener("message",t=>{const n=t.data,s=e.decode(n.data,n.width,n.height);postMessage({data:s})})})()

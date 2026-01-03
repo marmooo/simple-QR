@@ -1,13 +1,12 @@
-const cacheName = "2026-01-01 00:00";
+const cacheName = "2026-01-02 00:00";
 const urlsToCache = [
   "/simple-QR/scan.js",
   "/simple-QR/generate.js",
   "/simple-QR/favicon/favicon.svg",
-  "/simple-QR/koder.js",
-  "/simple-QR/koder/zbar.js",
-  "/simple-QR/koder/zbar.wasm",
-  "/simple-QR/koder/browser.js",
-  "https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.js",
+  "/simple-QR/zxing-worker.js",
+  "https://cdn.jsdelivr.net/npm/zxing-wasm@2.2.4/reader/+esm",
+  "https://fastly.jsdelivr.net/npm/zxing-wasm@2.2.4/dist/reader/zxing_reader.wasm",
+  "https://fastly.jsdelivr.net/npm/zxing-wasm@2.2.4/dist/writer/zxing_writer.wasm",
 ];
 
 async function preCache() {

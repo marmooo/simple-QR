@@ -29,6 +29,7 @@
     <link rel="manifest" href="/simple-QR/favicon/site.webmanifest">
     <link class="drop-inline-css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <style>
+      #qrcode svg { width:300px; height: 300px; image-rendering: pixelated; }
       html[data-bs-theme="dark"] .favicon { filter: invert(1) hue-rotate(180deg); }
     </style>
   </head>
@@ -67,9 +68,7 @@
         </div>
       </div>
       <button id="generateQR" class="btn btn-secondary mt-3" type="button">QR コードを生成</button>
-      <div class="pt-3">
-        <canvas id="qrcode" class="d-none" width="0" height="0"></canvas>
-      </div>
+      <div id="qrcode" class="pt-3"></div>
     </main>
     <footer class="pt-4 alert text-center">
       <div>
@@ -79,7 +78,6 @@
       </div>
       <div class="text-muted">&copy; <a href="https://github.com/marmooo">marmooo</a></div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.js" integrity="sha256-uliN+vc4v4mA5do7aAqxzj8gWvdXdFTBb5wFBv50TfQ=" crossorigin="anonymous"></script>
-    <script src="/simple-QR/generate.js"></script>
+    <script type="module" src="/simple-QR/generate.js"></script>
   </body>
 </html>

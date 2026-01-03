@@ -73,7 +73,7 @@ function tick(time) {
     canvasElement.width = width;
     canvasElement.height = height;
     canvas.drawImage(video, 0, 0, width, height);
-    if (time - prevTime > 500) {
+    if (time - prevTime > 100) {
       prevTime = time;
       const imageData = canvas.getImageData(0, 0, width, height);
       worker.postMessage({
@@ -94,8 +94,9 @@ async function copyToClipboard(text) {
 }
 
 function initWorker() {
-  const worker = new Worker("/simple-QR/koder.js");
+  const worker = new Worker("/simple-QR/zxing-worker.js", { type: "module" });
   worker.onmessage = (ev) => {
+    console.log(ev);
     const code = ev.data.data;
     if (!code) return;
     outputMessage.hidden = false;
