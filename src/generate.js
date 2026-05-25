@@ -3,20 +3,13 @@ import {
   writeBarcode,
 } from "https://cdn.jsdelivr.net/npm/zxing-wasm@2.2.4/writer/+esm";
 
-function loadConfig() {
-  if (localStorage.getItem("darkMode") == 1) {
-    document.documentElement.setAttribute("data-bs-theme", "dark");
-  }
-}
-
 function toggleDarkMode() {
-  if (localStorage.getItem("darkMode") == 1) {
-    localStorage.setItem("darkMode", 0);
-    document.documentElement.setAttribute("data-bs-theme", "light");
-  } else {
-    localStorage.setItem("darkMode", 1);
-    document.documentElement.setAttribute("data-bs-theme", "dark");
-  }
+  const html = document.documentElement;
+  const newTheme = html.getAttribute("data-bs-theme") === "dark"
+    ? "light"
+    : "dark";
+  html.setAttribute("data-bs-theme", newTheme);
+  localStorage.setItem("darkMode", newTheme);
 }
 
 async function generateQR() {
@@ -29,7 +22,6 @@ async function generateQR() {
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
 }
 
-loadConfig();
 await prepareZXingModule();
 
 document.getElementById("toggleDarkMode").onclick = toggleDarkMode;
